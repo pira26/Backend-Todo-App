@@ -44,26 +44,6 @@ mongoClient.connect('mongodb://localhost:27017', (err, client) => {
                     console.error('err', err);
                 }
             })
-        })
-        .put((req, res) => {
-            console.log('PUT');
-            const newTodo = req.body.newTodo;
-            const id = ObjectId(`${req.params.id}`);
-            db.collection('todoCollection').updateOne(
-                {'_id': ObjectId(`${req.params.id}`)},
-                { $set: { 'todo': newTodo } },
-                async (err, result) => {
-                    try {
-                        console.log('newTodo', newTodo);
-                        console.log('id', id);
-                        assert.equal(err, null);
-                        assert.equal(1, result.result.n);
-                        console.log('Updated the document');
-                        res.status(200).redirect('/');
-                    } catch (err) {
-                        console.error('err', err);
-                    }
-            })
         });
         // .delete((req, res) => {
         //     db.collection('todoCollection').deleteOne({'_id': ObjectId(`${req.params.id}`)}, async (err, result) => {
