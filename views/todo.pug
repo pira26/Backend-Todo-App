@@ -1,0 +1,10 @@
+extends layout
+
+block content 
+    each todo in todoList
+        h1 My Todo
+        p= todo.todo
+        a(href=`/todos/${todo._id}/edit`) Edit
+        form(action=`http://localhost:3000/todos/${todo._id}/delete`, method="post")
+            button(type="submit") Done
+        

@@ -1,0 +1,12 @@
+extends layout
+include mixins/_todo-form
+include mixins/_todo-list
+
+block content 
+    p Hello ! Welcome to #{title}!
+    +todoForm()
+    //- +todoList({todoList})
+    ul
+        each todo in todos
+            li
+                a(href=`/todos/${todo._id}`)= todo.todo

@@ -1,0 +1,7 @@
+mixin todoForm
+
+    h1 Today's Aim
+    form(name="add-todo", method="post", action="/")
+        label I will: 
+        input(type="text", placeholder="do", name="myTodo")
+        button(type="submit") ADD

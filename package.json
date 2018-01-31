@@ -1,0 +1,29 @@
+{
+  "name": "todo_app",
+  "version": "1.0.0",
+  "description": "Todo list with Node.js and Docker using MongoDB",
+  "main": "server.js",
+  "keywords": [
+    "NodeJS",
+    "Docker",
+    "MongoDB"
+  ],
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Pira",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "debug": "^3.1.0",
+    "express": "^4.16.2",
+    "mongodb": "^3.0.1",
+    "monk": "^6.0.5",
+    "morgan": "^1.9.0",
+    "pug": "^2.0.0-rc.4",
+    "serve-favicon": "^2.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.11"
+  }
+}
