@@ -7,6 +7,9 @@ block content
     +todoForm()
     //- +todoList({todoList})
     ul
-        each todo in todos
-            li
-                a(href=`/todos/${todo._id}`)= todo.todo
+        if empty 
+            p no todo
+        else 
+            each todo in todos
+                li
+                    a(href=`/todos/${todo._id}`)= todo.myTodo

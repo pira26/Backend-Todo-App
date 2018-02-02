@@ -2,7 +2,7 @@ extends layout
 
 block content
     h1 My new Todo
-    form(name="edit-todo", method="post", action=`/todos/${todoId}/edit`)
+    form(name="edit-todo", method="POST", action=`/todos/${todoId}/edit`)
         label I will now: 
-        input(type="text", placeholder="do", name="newTodo", minlength="10", maxlength="50")
+        input(type="text", placeholder="do", name="myTodo", minlength="10", maxlength="50")
         button(type="submit") ADD 

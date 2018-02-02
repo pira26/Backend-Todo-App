@@ -5,26 +5,66 @@ const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const routes = require('./routes');
-
+const mongoose = require('mongoose');
+// const routes = require('./routes/index-mongodb-native');
+const todo = require('./routes/todos');
 const app = express();
+const config = require('./config');
+
+mongoose.connect(config.dbURL);
+
+mongoose.connection.on('connected', () => {  
+  console.log(`Mongoose default connection is open to ${config.dbURL}`);
+});
+
+mongoose.connection.on('error', (err) => {
+  console.log(`Mongoose default connection has occured ${err} error`);
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.log('Mongoose default connection is disconnected');
+});
+
+process.on('SIGINT', () => {
+  mongoose.connection.close(() => {
+    console.log('Mongoose default connection is disconnected due to application termination');
+     process.exit(0);
+    });
+});
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // app.use(favicon(dirname + '/public/favicon.ico'));
+
 app.use(logger('dev'));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text());                                    
+app.use(bodyParser.json({ type: 'application/json'}));
+
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS, PATCH, POST, PUT, DELETE');
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
 
-// Make our db accessible to our router
-app.use('/', routes);
+app.route('/')
+  .get(todo.getTodos)
+  .post(todo.postTodo);
+
+app.route('/todos/:id')
+  .get(todo.getTodo);
+
+app.route('/todos/:id/edit')
+  .get(todo.getTodoForEdition)
+  .post(todo.updateTodo);
+
+app.route('/todos/:id/delete')
+  .post(todo.deleteTodo);  
+
 
 /// catch 404 and forwarding to error handler
 app.use(async(req, res, next) => {
@@ -69,7 +109,7 @@ app.use(async(err, req, res, next) => {
   }
 });
 
-app.listen(3000);
-console.log(`Running on port 3000`);
+app.listen(config.port);
+console.log(`Running on port ${config.port}`);
 
 module.exports = app;

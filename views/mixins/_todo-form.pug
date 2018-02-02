@@ -1,7 +1,7 @@
 mixin todoForm
 
-    h1 Today's Aim
-    form(name="add-todo", method="post", action="/")
+    h1 Today's Todo
+    form(name="add-todo", method="POST", action="/")
         label I will: 
         input(type="text", placeholder="do", name="myTodo", minlength="10", maxlength="50")
         button(type="submit") ADD
