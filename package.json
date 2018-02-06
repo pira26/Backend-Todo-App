@@ -6,12 +6,16 @@
   "keywords": [
     "NodeJS",
     "Docker",
-    "MongoDB"
+    "MongoDB",
+    "Moka",
+    "Chai",
+    "Pug"
   ],
   "scripts": {
     "start": "nodemon server.js",
     "test": "mocha ./tests/todo.js --timeout 10000"
   },
+  "private": true,
   "author": "Pira",
   "license": "ISC",
   "dependencies": {
@@ -19,9 +23,7 @@
     "debug": "^3.1.0",
     "dotenv": "^5.0.0",
     "express": "^4.16.2",
-    "mongodb": "^3.0.1",
     "mongoose": "^5.0.3",
-    "monk": "^6.0.5",
     "morgan": "^1.9.0",
     "pug": "^2.0.0-rc.4",
     "serve-favicon": "^2.4.5"

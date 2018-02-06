@@ -7,11 +7,12 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 // const routes = require('./routes/index-mongodb-native');
-const todo = require('./routes/todos');
+const todo = require('./backend/routes/todos');
 const app = express();
 const config = require('./config');
 
 mongoose.connect(config.dbURL);
+mongoose.set('debug', true);
 
 mongoose.connection.on('connected', () => {  
   console.log(`Mongoose default connection is open to ${config.dbURL}`);
@@ -32,10 +33,10 @@ process.on('SIGINT', () => {
     });
 });
 
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'backend/views'));
 app.set('view engine', 'pug');
 
-// app.use(favicon(dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/backend/public/favicon.ico'));
 
 app.use(logger('dev'));
 
@@ -45,9 +46,9 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: 'application/json'}));
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS, PATCH, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS, PATCH, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   next();
 });
 
