@@ -41,9 +41,7 @@ app.use(favicon(__dirname + '/backend/public/favicon.ico'));
 app.use(logger('dev'));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.text());                                    
-app.use(bodyParser.json({ type: 'application/json'}));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -57,7 +55,8 @@ app.route('/')
   .post(todo.postTodo);
 
 app.route('/todos/:id')
-  .get(todo.getTodo);
+  .get(todo.getTodo)
+  .delete(todo.deleteTodo); // not working
 
 app.route('/todos/:id/edit')
   .get(todo.getTodoForEdition)

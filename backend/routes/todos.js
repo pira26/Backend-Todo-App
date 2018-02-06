@@ -9,7 +9,8 @@ const getTodos = (req, res) => {
         if (err) {
             res.send(err);
         }
-        res.render('index', { title: 'Docker', todos: result });
+        // res.render('index', { title: 'Docker', todos: result });
+        res.json(result);
     });
 }
 
@@ -31,7 +32,8 @@ const getTodo = (req, res) => {
         if (err) {
             res.send(err);
         }
-        res.render('todo', { todo: result });
+        // res.render('todo', { todo: result });
+        res.json(result);
     });     
 }
 
@@ -50,7 +52,8 @@ const getTodoForEdition = (req, res) => {
         if (err) {
             res.send(err);
         }
-        res.render('edit-todo', {todoId: req.params.id});
+        // res.render('edit-todo', {todoId: req.params.id});
+        res.json(result);
     });     
 }
 
