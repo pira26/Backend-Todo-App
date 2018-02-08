@@ -2,7 +2,7 @@
   <h1>Edit Todo</h1>
   <div class="row">
     <div class="col-md-6">
-      <form (ngSubmit)="updateTodo(todo._id)" #todoForm="ngForm">
+      <form (ngSubmit)="updateTodo(todo._id, todoForm.value)" #todoForm="ngForm">
         <div class="form-group">
           <label for="name">My new Todo</label>
           <input type="text" class="form-control" [(ngModel)]="todo.myTodo" name="myTodo" required>

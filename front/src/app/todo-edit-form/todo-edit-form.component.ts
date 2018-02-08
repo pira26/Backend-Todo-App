@@ -28,9 +28,8 @@ export class TodoEditFormComponent implements OnInit {
       });
   }
 
-  updateTodo(id) {
-    const newTodo = this.todo.myTodo;
-    console.log('newTodo', newTodo);
+  updateTodo(id, newTodo) {
+    // console.log('newTodo', newTodo);
     this.http.put(`http://localhost:3000/todos/${id}`, newTodo)
       .subscribe((res) => {
         // console.log('res', res);
