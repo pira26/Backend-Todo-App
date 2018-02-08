@@ -17,7 +17,10 @@ export class TodoListComponent implements OnInit {
       .subscribe((myTodoList) => {
         // console.log('myTodoList', myTodoList);
         this.todoList = myTodoList;
-      });
+      }, (err) => {
+        console.error('err', err);
+      }
+    );
   }
 
 }

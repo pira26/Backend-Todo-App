@@ -20,7 +20,7 @@ export class TodoFormComponent implements OnInit {
   saveTodo() {
     this.http.post('http://localhost:3000', this.todo)
       .subscribe((res) => {
-          console.log('res', res);
+          // console.log('res', res);
           const id = res['_id'];
           this.router.navigate(['http://localhost:4200/todos', id]);
         }, (err) => {

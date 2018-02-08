@@ -30,11 +30,7 @@ export class TodoDetailComponent implements OnInit {
   }
 
   deleteTodo(id) {
-    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
-    const options =  {
-        headers: headers
-    };
-    this.http.delete(`http://localhost:3000/todos/${id}`, options)
+    this.http.delete(`http://localhost:3000/todos/${id}`)
       .subscribe((res) => {
           this.router.navigate(['http://localhost:4200/todos']);
         }, (err) => {

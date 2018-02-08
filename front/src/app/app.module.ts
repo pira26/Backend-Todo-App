@@ -6,30 +6,30 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import routes from './todos.routes';
+// import routes from './todos.routes';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoDetailComponent } from './todo-detail/todo-detail.component';
 import { TodoFormComponent } from './todo-form/todo-form.component';
 import { TodoEditFormComponent } from './todo-edit-form/todo-edit-form.component';
 
-// const routes: Routes = [
-//   {
-//       path: 'todos',
-//       component: TodoListComponent
-//   },
-//   {
-//     path: 'todos/:id',
-//     component: TodoDetailComponent
-//   },
-//   {
-//     path: 'todos/add',
-//     component: TodoFormComponent
-//   },
-//   {
-//     path: 'todos/edit/:id',
-//     component: TodoEditFormComponent
-//   },
-// ];
+const routes: Routes = [
+  {
+      path: 'todos',
+      component: TodoListComponent
+  },
+  {
+    path: 'todos/:id',
+    component: TodoDetailComponent
+  },
+  {
+    path: 'add',
+    component: TodoFormComponent
+  },
+  {
+    path: 'todos/edit/:id',
+    component: TodoEditFormComponent
+  },
+];
 
 @NgModule({
   imports: [

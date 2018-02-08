@@ -28,13 +28,15 @@ export class TodoEditFormComponent implements OnInit {
     });
   }
 
-  updateTodo(id, newTodo) {
+  updateTodo(id) {
+    const newTodo = this.todo.myTodo;
+    console.log('newTodo', newTodo);
     this.http.put(`http://localhost:3000/todos/${id}`, newTodo)
       .subscribe((res) => {
-          const id = res['_id'];
+        console.log('res', res);
           this.router.navigate(['http://localhost:4200/todos', id]);
         }, (err) => {
-          console.log(err);
+          console.error('err', err);
         }
       );
   }
