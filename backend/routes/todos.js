@@ -22,7 +22,8 @@ const postTodo = (req, res) => {
         if (err) {
             res.send(err);
         } else { 
-            res.status(200).redirect('/');
+            // res.status(200).redirect('/');
+            res.json(todo);
         }
     });
 }
@@ -39,8 +40,9 @@ const getTodo = (req, res) => {
 
 const deleteTodo = (req, res) => {
     Todo.findByIdAndRemove({_id : req.params.id})
-        .then((todo) => {
-            res.status(200).redirect('/');
+        .then((result) => {
+            // res.status(200).redirect('/');
+            res.json(result);
         })
         .catch((err) => {
             res.send(err);
@@ -61,7 +63,8 @@ const updateTodo = (req, res) => {
     Todo.findByIdAndUpdate({_id: req.params.id}, { $set: { 'myTodo': req.body.myTodo } },
         async (err, result) => {
             try {
-                res.status(200).redirect('/');
+                // res.status(200).redirect('/');
+                res.json(result);
             } catch (err) {
                 console.error('err', err);
             }

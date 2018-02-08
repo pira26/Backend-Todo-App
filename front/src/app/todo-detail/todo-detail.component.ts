@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TodoDetailComponent implements OnInit {
 
-  todo = {};
+  todo: any = {};
 
   constructor(
     private router: Router,
@@ -30,7 +30,11 @@ export class TodoDetailComponent implements OnInit {
   }
 
   deleteTodo(id) {
-    this.http.delete(`http://localhost:3000/todos/${id}`)
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
+    const options =  {
+        headers: headers
+    };
+    this.http.delete(`http://localhost:3000/todos/${id}`, options)
       .subscribe((res) => {
           this.router.navigate(['http://localhost:4200/todos']);
         }, (err) => {

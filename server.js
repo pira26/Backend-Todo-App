@@ -44,9 +44,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS, PATCH, POST, PUT, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS, PATCH, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   next();
 });
 
@@ -56,7 +56,8 @@ app.route('/')
 
 app.route('/todos/:id')
   .get(todo.getTodo)
-  .delete(todo.deleteTodo); // not working
+  .put(todo.updateTodo) // not working in front but working in postman
+  .delete(todo.deleteTodo); // not working in front but working in postman
 
 app.route('/todos/:id/edit')
   .get(todo.getTodoForEdition)

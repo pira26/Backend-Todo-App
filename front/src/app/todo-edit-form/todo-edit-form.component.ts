@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TodoEditFormComponent implements OnInit {
 
-  todo = {};
+  todo: any = {};
 
   constructor(
     private http: HttpClient, 
