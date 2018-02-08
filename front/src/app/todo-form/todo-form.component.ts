@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -12,7 +12,10 @@ export class TodoFormComponent implements OnInit {
 
   todo: any = {};
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
   }
@@ -22,7 +25,7 @@ export class TodoFormComponent implements OnInit {
       .subscribe((res) => {
           // console.log('res', res);
           const id = res['_id'];
-          this.router.navigate(['http://localhost:4200/todos', id]);
+          this.router.navigate([this.route.snapshot.url[0].path, id]);
         }, (err) => {
           console.error('err', err);
         }

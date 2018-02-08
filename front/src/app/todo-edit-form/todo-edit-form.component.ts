@@ -23,9 +23,9 @@ export class TodoEditFormComponent implements OnInit {
 
   getTodo(id) {
     this.http.get(`http://localhost:3000/todos/${id}`)
-    .subscribe((myTodo) => {
-      this.todo = myTodo;
-    });
+      .subscribe((myTodo) => {
+        this.todo = myTodo;
+      });
   }
 
   updateTodo(id) {
@@ -33,8 +33,8 @@ export class TodoEditFormComponent implements OnInit {
     console.log('newTodo', newTodo);
     this.http.put(`http://localhost:3000/todos/${id}`, newTodo)
       .subscribe((res) => {
-        console.log('res', res);
-          this.router.navigate(['http://localhost:4200/todos', id]);
+        // console.log('res', res);
+          this.router.navigate([this.route.snapshot.url[0].path, id]);
         }, (err) => {
           console.error('err', err);
         }

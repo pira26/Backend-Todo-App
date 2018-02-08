@@ -32,7 +32,7 @@ export class TodoDetailComponent implements OnInit {
   deleteTodo(id) {
     this.http.delete(`http://localhost:3000/todos/${id}`)
       .subscribe((res) => {
-          this.router.navigate(['http://localhost:4200/todos']);
+          this.router.navigate([this.route.snapshot.url[0].path]);
         }, (err) => {
           console.error('err', err);
         }
