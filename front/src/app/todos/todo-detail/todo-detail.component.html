@@ -1,9 +1,9 @@
-<div class="container">
-  <p>{{ todo.myTodo }}</p>
-</div>
-<div class="row">
-  <div class="col-md-6">
-    <a [routerLink]="['/todos/edit/', todo._id]" class="btn btn-success">EDIT</a>
-    <button class="btn btn-danger" type="button" (click)="deleteTodo(todo._id)">DELETE</button>
+<div class="row text-center">
+  <div class="col-md-9">
+    <h4>{{ todo.myTodo }}</h4>
   </div>
+  <div class="col-md-3">
+      <a [routerLink]="['/todos/edit/', todo._id]" class="btn btn-success">EDIT 🖋</a>
+      <button class="btn btn-danger" type="button" (click)="deleteTodo(todo._id)">DELETE 🗑</button>
+    </div>
 </div>

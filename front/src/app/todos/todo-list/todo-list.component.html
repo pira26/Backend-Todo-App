@@ -1,20 +1,34 @@
 <div class="container">
-  <h1>My Todo</h1>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Todo</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let todo of todoList">
-        <td><a [routerLink]="todo._id">{{ todo.myTodo }}</a></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="text-center">My Todo</h1>
+      <div class="text-right add-button">Add New Todo
+        <a [routerLink]="['/add']" class="btn btn-default btn-xs">
+          <span>➕</span>
+        </a>
+      </div>
+      <div class="text-center todo-list">
+        <div *ngIf="todoList.length !== 0; else displayMessageTemplate">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Todo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let todo of todoList">
+                <td><a [routerLink]="todo._id">{{ todo.myTodo }}</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<h2>Add New Todo
-  <a [routerLink]="['/add']" class="btn btn-default btn-lg">
-    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-  </a>
-</h2>
+
+<ng-template #displayMessageTemplate>
+  <span>Sorry, nothing to show 😔.</span>
+  <br>
+  <span>But you can add one 😉 👍 !</span>
+</ng-template>

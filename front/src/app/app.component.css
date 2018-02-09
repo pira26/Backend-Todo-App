@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+div {
+    background-color: #DD0031;
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    text-underline-position: none;
+}
+
+li {
+    list-style: none;
+}
+
+h1 {
+    color: white;
+}

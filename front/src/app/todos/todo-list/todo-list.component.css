@@ -1,0 +1,10 @@
+.container {
+    background-color: #C3002F;
+}
+
+.todo-list,
+.add-button,
+h1,
+a {
+    color: white; 
+}
