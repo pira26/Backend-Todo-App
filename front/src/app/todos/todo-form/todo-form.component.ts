@@ -23,9 +23,8 @@ export class TodoFormComponent implements OnInit {
   saveTodo() {
     this.todosService.postTodo(this.todo)
       .subscribe((res) => {
-          // console.log('res', res);
-          const id = res['_id'];
-          this.router.navigate([this.route.snapshot.url[0].path, id]);
+          // console.log('res', res)
+          this.router.navigate(['/todos']);
         }, (err) => {
           console.error('err', err);
         }

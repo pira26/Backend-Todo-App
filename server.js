@@ -6,10 +6,14 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const compression = require('compression');
 // const routes = require('./routes/index-mongodb-native');
 const todo = require('./backend/routes/todos');
-const app = express();
 const config = require('./config');
+const app = express();
+
+// compress responses
+app.use(compression());
 
 mongoose.connect(config.dbURL);
 mongoose.set('debug', true);
@@ -42,6 +46,8 @@ app.use(logger('dev'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.disable('x-powered-by');
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
