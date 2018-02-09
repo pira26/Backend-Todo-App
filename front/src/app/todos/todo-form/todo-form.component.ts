@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { TodosService } from '../../services/todos.service';
 
 @Component({
   selector: 'app-todo-form',
@@ -13,7 +13,7 @@ export class TodoFormComponent implements OnInit {
   todo: any = {};
 
   constructor(
-    private http: HttpClient,
+    private todosService: TodosService,
     private router: Router,
     private route: ActivatedRoute) { }
 
@@ -21,7 +21,7 @@ export class TodoFormComponent implements OnInit {
   }
 
   saveTodo() {
-    this.http.post('http://localhost:3000', this.todo)
+    this.todosService.postTodo(this.todo)
       .subscribe((res) => {
           // console.log('res', res);
           const id = res['_id'];

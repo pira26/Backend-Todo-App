@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { TodosService } from '../../services/todos.service';
 
 @Component({
   selector: 'app-todo-edit-form',
@@ -13,7 +13,7 @@ export class TodoEditFormComponent implements OnInit {
   todo: any = {};
 
   constructor(
-    private http: HttpClient, 
+    private todosService: TodosService, 
     private router: Router, 
     private route: ActivatedRoute) { }
 
@@ -22,7 +22,7 @@ export class TodoEditFormComponent implements OnInit {
   }
 
   getTodo(id) {
-    this.http.get(`http://localhost:3000/todos/${id}`)
+    this.todosService.getTodo(id)
       .subscribe((myTodo) => {
         this.todo = myTodo;
       });
@@ -30,7 +30,7 @@ export class TodoEditFormComponent implements OnInit {
 
   updateTodo(id, newTodo) {
     // console.log('newTodo', newTodo);
-    this.http.put(`http://localhost:3000/todos/${id}`, newTodo)
+    this.todosService.putTodo(id, newTodo)
       .subscribe((res) => {
         // console.log('res', res);
           this.router.navigate([this.route.snapshot.url[0].path, id]);

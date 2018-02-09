@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { TodosService } from '../../services/todos.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -10,10 +10,10 @@ export class TodoListComponent implements OnInit {
 
   todoList: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private todosService: TodosService) { }
 
   ngOnInit() {
-    this.http.get('http://localhost:3000')
+    this.todosService.getTodos()
       .subscribe((myTodoList) => {
         // console.log('myTodoList', myTodoList);
         this.todoList = myTodoList;

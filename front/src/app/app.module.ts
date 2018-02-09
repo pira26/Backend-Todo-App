@@ -7,10 +7,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 // import routes from './todos.routes';
-import { TodoListComponent } from './todo-list/todo-list.component';
-import { TodoDetailComponent } from './todo-detail/todo-detail.component';
-import { TodoFormComponent } from './todo-form/todo-form.component';
-import { TodoEditFormComponent } from './todo-edit-form/todo-edit-form.component';
+import { TodoListComponent } from './todos/todo-list/todo-list.component';
+import { TodoDetailComponent } from './todos/todo-detail/todo-detail.component';
+import { TodoFormComponent } from './todos/todo-form/todo-form.component';
+import { TodoEditFormComponent } from './todos/todo-edit-form/todo-edit-form.component';
+import { TodosService } from './services/todos.service';
 
 const routes: Routes = [
   {
@@ -46,7 +47,7 @@ const routes: Routes = [
     TodoFormComponent,
     TodoEditFormComponent,
   ],
-  providers: [],
+  providers: [TodosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
