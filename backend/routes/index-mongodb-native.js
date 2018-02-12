@@ -1,10 +1,11 @@
 'use strict';
 
-const express = require('express');
-const router = express.Router();
-const assert = require('assert');
-const mongoClient = require('mongodb').MongoClient;
-const ObjectId = require('mongodb').ObjectID;
+const 
+    express = require('express'),
+    router = express.Router(),
+    assert = require('assert'),
+    mongoClient = require('mongodb').MongoClient,
+    ObjectId = require('mongodb').ObjectID;
 
 mongoClient.connect('mongodb://localhost:27017', (err, client) => {
     assert.equal(null, err);

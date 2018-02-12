@@ -1,16 +1,20 @@
 'use strict';
 
-const express = require('express');
-const path = require('path');
-const favicon = require('serve-favicon');
-const logger = require('morgan');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const compression = require('compression');
-// const routes = require('./routes/index-mongodb-native');
-const todo = require('./backend/routes/todos');
-const config = require('./config');
-const app = express();
+const 
+  express = require('express'),
+  path = require('path'),
+  favicon = require('serve-favicon'),
+  logger = require('morgan'),
+  bodyParser = require('body-parser'),
+  mongoose = require('mongoose'),
+  compression = require('compression'),
+  jsonwebtoken = require('jsonwebtoken'),
+  // routes = require('./routes/index-mongodb-native'),
+  routes = require('./backend/routes/todos'),
+  config = require('./config'),
+  Todo = require('./backend/models/todo'),
+  User = require('./backend/models/user'),
+  app = express();
 
 // compress responses
 app.use(compression());
@@ -53,30 +57,30 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS, PATCH, POST, PUT, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+
+  // if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
+  //   jsonwebtoken.verify(req.headers.authorization.split(' ')[1], 'RESTFULAPIs', (err, decode) => {
+  //     if (err) {
+  //       req.user = undefined;
+  //       req.user = decode;
+  //       next();
+  //     }
+  //   });
+  // } else {
+  //   req.user = undefined;
+  //   next();
+  // }
+
   //intercepts OPTIONS method
   if ('OPTIONS' === req.method) {
     res.sendStatus(200);
   } else {
     next();
   }
+
 });
 
-app.route('/')
-  .get(todo.getTodos)
-  .post(todo.postTodo);
-
-app.route('/todos/:id')
-  .get(todo.getTodo)
-  .put(todo.updateTodo) // not working in front but working in postman
-  .delete(todo.deleteTodo); // not working in front but working in postman
-
-app.route('/todos/:id/edit')
-  .get(todo.getTodoForEdition)
-  .post(todo.updateTodo);
-
-app.route('/todos/:id/delete')
-  .post(todo.deleteTodo);  
-
+routes(app); 
 
 /// catch 404 and forwarding to error handler
 app.use(async(req, res, next) => {

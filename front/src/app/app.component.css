@@ -3,22 +3,35 @@
     padding: 0;
 }
 
-div {
-    background-color: #DD0031;
+h1 {
+    padding: 2rem 0;
 }
 
-a {
-    color: white;
+a,
+h1 {
+    color: white !important;
 }
 
 a:hover {
     text-underline-position: none;
+    background: #C3002F !important;
 }
 
 li {
     list-style: none;
 }
 
+.navbar {
+    background: #DD0031;
+    border: none;
+    border-radius: 0;
+}
+
+.navbar-header {
+    margin: 0;
+}
+
+.view,
 h1 {
-    color: white;
+    background-color: #DD0031;
 }

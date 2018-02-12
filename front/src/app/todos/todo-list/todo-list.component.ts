@@ -8,7 +8,7 @@ import { TodosService } from '../../services/todos.service';
 })
 export class TodoListComponent implements OnInit {
 
-  todoList: any;
+  todoList: any = [];
 
   constructor(private todosService: TodosService) { }
 
