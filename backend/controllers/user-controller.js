@@ -1,84 +1,99 @@
 'use strict';
 
 const 
-    mongoose = require('mongoose'),
-    bcrypt = require('bcrypt'),
     jwt = require('jsonwebtoken'),
-    User = mongoose.model('User');
+    mongoose = require('mongoose'),
+    User = require('../models/user'),
+    config = require('../../config');
 
-const register = async (req, res) => {
-//     const newUser = new User(req.body);
-//     newUser.hash_password = bcrypt.hashSync(req.body.password, 10);
-//     newUser.save((err, user) => {
-//     if (err) {
-//       return res.status(400).send({
-//         message: err
-//       });
-//     } else {
-//       user.hash_password = undefined;
-//       return res.json(user);
-//     }
-//   });
-    try {
-        const newUser = new User(req.body);
-        newUser.password = await bcrypt.hashSync(req.body.password, 10);
-        newUser.save();
-        return res.json(newUser);
-    } catch (err) {
-        console.error('err', err);
-    }
+const signToken = (user) => {
+    return jwt.sign({
+        iss: 'todoApp',
+        sub: user.id,
+        iat: new Date().getTime(),
+        exp: new Date().setDate(new Date().getDate() + 1)
+    }, config.secret)
+};
+ 
+module.exports = {
+ 
+    sign_in: async (req, res, next) => {
+		try {
+			const { email, password, lastName, firstName, avatar } = req.value.body;
+		
+			const findUser = await User.findOne({ email });
+			if (findUser) {
+				return res.sendStatus(403).json({ error: 'Email is already in use' });
+			}
+			const newUser = new User({ email, password, lastName, firstName, avatar });
+			await newUser.save();
+		
+			const token = signToken(newUser);
+		    await res.sendStatus(200).json({ token });
+        } catch (err) {
+			console.error('err', err);
+		}
+    },
+    
+    login: async (req, res, next) => {
+		try {
+			// console.log('req.user', req.user);
+			const token = signToken(req.user);
+			await res.sendStatus(200).json({ token });
+		} catch (err) {
+			console.error('err', err);
+		}
+    },
+
+    findAll: (req, res) => {
+		User.find({})
+			.then((users) => {
+				// console.log('users', users)
+				res.sendStatus(200).json(users);
+			})
+			.catch((err) => {
+				console.error('err', err);	
+				res.sendStatus(500).json("operation failed" + err);
+			});
+	},
+
+	findById: (req, res) => {
+		User.findOne({ _id: req.params.id })
+			.then((user) => {
+				// console.log('user', user);
+				res.sendStatus(200).json(user);
+			})
+			.catch((err) => {
+				console.error('err', err);
+				res.sendStatus(500).json("operation failed" + err);
+			});
+	},
+
+	update: (req, res) => {
+		const user = User.findByIdAndUpdate({ _id: req.params.id })
+			.then((user) => {
+				user.lastName = req.body.lastName,
+				user.firstName = req.body.firstName,
+				user.password = req.body.password,
+				user.avatar = req.body.avatar,
+				user.email = req.body.email,
+				user.save();
+				res.sendStatus(200).json("updated user" + user);
+			})
+			.catch((err) => {
+				res.sendStatus(500).json("operation failed" + err)
+			});
+        const token = signToken(user);
+        console.log('token', token);	
+	},
+
+    delete: (req, res) => {
+		User.findByIdAndRemove({ _id: req.params.id })
+			.then((data) => {
+				res.sendStatus(200).json("deleted profil" + data);
+			}) 
+			.catch((err) => {
+				res.sendStatus(500).json("operation failed" + err);
+			});
+	},
 }
-
-
-const sign_in = async (req, res) => {
-    // User.findOne({
-    //     email: req.body.email
-    //   }, (err, user) => {
-    //     if (err) throw err;
-    //     if (!user) {
-    //       res.status(401).json({ message: 'Authentication failed. User not found.' });
-    //     } else if (user) {
-    //       if (!user.comparePassword(req.body.password)) {
-    //         res.status(401).json({ message: 'Authentication failed. Wrong password.' });
-    //       } else {
-    //         return res.json({token: jwt.sign({ email: user.email, fullName: user.fullName, _id: user._id}, 'RESTFULAPIs')});
-    //       }
-    //     }
-    // });
-    try {
-        User.findOne(
-            { email: req.body.email },
-            async (user) => {
-                try {
-                    if (!user) {
-                        res.status(401).json({ message: 'Authentication failed. User not found.' });
-                    } else if (user) {
-                        if (!user.comparePassword(req.body.password)) {
-                        res.status(401).json({ message: 'Authentication failed. Wrong password.' });
-                        } else {
-                            return res.json({token: jwt.sign({ email: user.email, fullName: user.fullName, _id: user._id}, 'RESTFULAPIs')});
-                        }
-                    }
-                } catch (err) {
-                    console.error('err', err);
-                }
-            }
-        )
-    } catch (err) {
-        console.error('err', err);
-    }
-}
-
-const loginRequired = async (req, res, next) => {
-    try {
-        if (req.user) {
-            next();
-        } else {
-            return res.status(401).json({ message: 'Unauthorized user!' });
-          }
-    } catch (err) {
-        console.error('err', err);
-    }
-}
-
-exports.module = { register, sign_in, loginRequired }    

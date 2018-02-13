@@ -9,4 +9,5 @@
           return Angular
       }
     - Mocha and Chai
-    - Docker   
+    - Docker
+    - JWT   

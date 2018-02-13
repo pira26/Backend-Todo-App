@@ -9,12 +9,16 @@ const
   mongoose = require('mongoose'),
   compression = require('compression'),
   jsonwebtoken = require('jsonwebtoken'),
+  // passport = require('passport'),
   // routes = require('./routes/index-mongodb-native'),
   routes = require('./backend/routes/todos'),
   config = require('./config'),
-  Todo = require('./backend/models/todo'),
-  User = require('./backend/models/user'),
-  app = express();
+  // Todo = require('./backend/models/todo'),
+  // User = require('./backend/models/user'),
+  app = express(),
+  users = require('./backend/routes/users');
+
+// require('./backend/passports/user-passport');
 
 // compress responses
 app.use(compression());
@@ -80,7 +84,11 @@ app.use((req, res, next) => {
 
 });
 
-routes(app); 
+// app.use(passport.initialize());
+
+routes(app);
+
+app.use('/users', users);
 
 /// catch 404 and forwarding to error handler
 app.use(async(req, res, next) => {
