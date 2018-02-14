@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { TodosService } from '../../services/todos.service';
 
 @Component({
@@ -12,10 +12,7 @@ export class TodoFormComponent implements OnInit {
 
   todo: any = {};
 
-  constructor(
-    private todosService: TodosService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+  constructor(private todosService: TodosService, private router: Router) { }
 
   ngOnInit() {
   }

@@ -15,7 +15,11 @@ router.route('/login')
     .post(validateBody(schemas.authSchema), passport.authenticate('local', { session: false }), usersHandler.login);
 
 router.route('/')
-    .get(usersHandler.findAll)
-    .put(usersHandler.update)    
+    .get(usersHandler.findAll);
+
+router.route('/:id')
+    .get(usersHandler.findById)
+    .put(usersHandler.update)
+    .delete(usersHandler.delete);    
 
 module.exports = router;

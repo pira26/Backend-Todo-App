@@ -23,13 +23,13 @@ module.exports = {
 		
 			const findUser = await User.findOne({ email });
 			if (findUser) {
-				return res.sendStatus(403).json({ error: 'Email is already in use' });
+				return res.status(403).json({ error: 'Email is already in use' });
 			}
 			const newUser = new User({ email, password, lastName, firstName, avatar });
 			await newUser.save();
 		
 			const token = signToken(newUser);
-		    await res.sendStatus(200).json({ token });
+		    await res.status(200).json({ token });
         } catch (err) {
 			console.error('err', err);
 		}
@@ -39,37 +39,38 @@ module.exports = {
 		try {
 			// console.log('req.user', req.user);
 			const token = signToken(req.user);
-			await res.sendStatus(200).json({ token });
+			await res.status(200).json({ token });
 		} catch (err) {
 			console.error('err', err);
 		}
     },
 
-    findAll: (req, res) => {
+    findAll: async (req, res) => {
 		User.find({})
 			.then((users) => {
-				// console.log('users', users)
-				res.sendStatus(200).json(users);
+				console.log('users', users)
+				return res.status(200).send(users);
 			})
 			.catch((err) => {
 				console.error('err', err);	
-				res.sendStatus(500).json("operation failed" + err);
+				return res.status(500).send("operation failed" + err);
 			});
 	},
 
-	findById: (req, res) => {
+	findById: async (req, res) => {
 		User.findOne({ _id: req.params.id })
 			.then((user) => {
-				// console.log('user', user);
-				res.sendStatus(200).json(user);
+				console.log('user', user);
+				return res.status(200).json(user);
 			})
 			.catch((err) => {
 				console.error('err', err);
-				res.sendStatus(500).json("operation failed" + err);
+				return res.status(500).json("operation failed" + err);
 			});
 	},
 
-	update: (req, res) => {
+	// update doesnt work well 
+	update: async (req, res) => {
 		const user = User.findByIdAndUpdate({ _id: req.params.id })
 			.then((user) => {
 				user.lastName = req.body.lastName,
@@ -78,22 +79,22 @@ module.exports = {
 				user.avatar = req.body.avatar,
 				user.email = req.body.email,
 				user.save();
-				res.sendStatus(200).json("updated user" + user);
+				return res.status(200).json("updated user" + user);
 			})
 			.catch((err) => {
-				res.sendStatus(500).json("operation failed" + err)
+				return res.status(500).json("operation failed" + err)
 			});
         const token = signToken(user);
         console.log('token', token);	
 	},
 
-    delete: (req, res) => {
+    delete: async (req, res) => {
 		User.findByIdAndRemove({ _id: req.params.id })
 			.then((data) => {
-				res.sendStatus(200).json("deleted profil" + data);
+				return res.status(200).json("deleted profil" + data);
 			}) 
 			.catch((err) => {
-				res.sendStatus(500).json("operation failed" + err);
+				return res.status(500).json("operation failed" + err);
 			});
 	},
 }

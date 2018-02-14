@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { Routes, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 // import routes from './todos.routes';
@@ -12,8 +12,8 @@ import { TodoDetailComponent } from './todos/todo-detail/todo-detail.component';
 import { TodoFormComponent } from './todos/todo-form/todo-form.component';
 import { TodoEditFormComponent } from './todos/todo-edit-form/todo-edit-form.component';
 import { TodosService } from './services/todos.service';
-import { LoginComponent } from './auth/login/login.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
+import { LoginComponent } from './auth/login/login.component';
 import { AuthService } from './services/auth.service';
 
 const routes: Routes = [
@@ -34,12 +34,12 @@ const routes: Routes = [
     component: TodoEditFormComponent
   },
   {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
     path: 'sign-in',
     component: SignInComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   },
 ];
 
@@ -49,6 +49,7 @@ const routes: Routes = [
     // RouterModule.forRoot(routes, { enableTracing: true })  // <-- debugging purposes only
     RouterModule.forRoot(routes),
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
   ],
   declarations: [

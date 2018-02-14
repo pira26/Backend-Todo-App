@@ -1,3 +1,32 @@
-<p>
-  sign-in works!
-</p>
+<div class="row text-center">
+  <div class="col-sm-12">
+    <form [formGroup]="signInForm">
+      <fieldset>
+        <legend>Sign In</legend>
+        <div class="form-field">
+          <label>Email:</label>
+          <input name="email" formControlName="email" type="email" placeholder="exemple@mail.fr" maxlength="30" minlength="9">
+        </div>
+        <div class="form-field">
+          <label>Password:</label>
+          <input name="password" formControlName="password" type="password" placeholder="mot de passe" maxlength="20" minlength="6">
+        </div>
+        <div class="form-field">
+          <label>FirstName:</label>
+          <input name="firstName" formControlName="firstName" type="text" placeholder="nom" maxlength="15" minlength="2">
+        </div>
+        <div class="form-field">
+          <label>LastName:</label>
+          <input name="lastName" formControlName="lastName" type="text" placeholder="prénom" maxlength="15" minlength="2">
+        </div>
+        <div class="form-field">
+          <label>Avatar:</label>
+          <input name="avatar" formControlName="avatar" type="text" placeholder="lien de l'avatar" maxlength="50" minlength="10">
+        </div>
+      </fieldset>
+      <div class="form-buttons">
+        <button (click)="sign_in()" type="submit" classs="button btn-success">Sign In</button>
+      </div>
+    </form>
+  </div>
+</div>

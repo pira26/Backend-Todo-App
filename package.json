@@ -12,7 +12,7 @@
     "Chai",
     "Pug",
     "JWT",
-    "Crypto",
+    "Joi",
     "Passport"
   ],
   "scripts": {
