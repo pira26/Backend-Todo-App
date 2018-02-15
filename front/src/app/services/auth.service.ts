@@ -18,9 +18,17 @@ export class AuthService {
   get_users() {
     return this.http.get('http://localhost:3000/users');
   }
-  
+
   get_user(id: string) {
     return this.http.get(`http://localhost:3000/users/${id}`);
+  }
+
+  edit_user(id: string, user: User) {
+    return this.http.put(`http://localhost:3000/users/${id}`, user);
+  }
+
+  delete_user(id: string) {
+    return this.http.delete(`http://localhost:3000/users/${id}`);
   }
 
 }

@@ -16,6 +16,7 @@ import { LoginComponent } from './components/users/auth/login/login.component';
 import { AuthService } from './services/auth.service';
 import { ListOfUsersComponent } from './components/users/list-of-users/list-of-users.component';
 import { UserComponent } from './components/users/user/user.component';
+import { EditUserComponent } from './components/users/edit-user/edit-user.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,10 @@ const routes: Routes = [
     path: 'users/:id',
     component: UserComponent
   },
+  {
+    path: 'users/edit/:id',
+    component: EditUserComponent
+  },
 ];
 
 @NgModule({
@@ -71,6 +76,7 @@ const routes: Routes = [
     SignInComponent,
     ListOfUsersComponent,
     UserComponent,
+    EditUserComponent,
   ],
   providers: [TodosService, AuthService],
   bootstrap: [AppComponent]

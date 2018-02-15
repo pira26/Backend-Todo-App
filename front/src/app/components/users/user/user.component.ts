@@ -11,7 +11,10 @@ export class UserComponent implements OnInit {
 
   user: any = {};
 
-  constructor(private authService: AuthService, private route: ActivatedRoute) { }
+  constructor(
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     this.getUser(this.route.snapshot.params['id']);
@@ -22,6 +25,16 @@ export class UserComponent implements OnInit {
       .subscribe((user) => {
         return this.user = user;
       });
+  }
+
+  deleteUser(id) {
+    this.authService.delete_user(id)
+      .subscribe((res) => {
+          this.router.navigate(['users']);
+        }, (err) => {
+          console.error('err', err);
+        }
+      );
   }
 
 }
