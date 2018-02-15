@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -28,10 +28,10 @@ export class SignInComponent implements OnInit {
   }
 
   sign_in() {
-    this.authService.sign_in(this.signInForm.value)
+    this.authService.create_user(this.signInForm.value)
       .subscribe((res) => {
         console.log('res', res) // get token
-        // this.router.navigate(['/login']); // fix redirection
+        this.router.navigate(['login']);
       }, (err) => {
         console.error('err', err);
       }

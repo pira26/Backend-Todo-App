@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { TodosService } from '../../services/todos.service';
+import { TodosService } from '../../../services/todos.service';
 
 @Component({
   selector: 'app-todo-form',
@@ -21,7 +21,7 @@ export class TodoFormComponent implements OnInit {
     this.todosService.postTodo(this.todo)
       .subscribe((res) => {
           // console.log('res', res)
-          this.router.navigate(['/todos']);
+          this.router.navigate(['todos']);
         }, (err) => {
           console.error('err', err);
         }

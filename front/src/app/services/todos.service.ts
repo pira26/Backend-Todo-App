@@ -10,19 +10,19 @@ export class TodosService {
     return this.http.get(`http://localhost:3000`);
   }
 
-  postTodo(todo) {
+  postTodo(todo: Object) {
     return this.http.post('http://localhost:3000', todo);
   }
 
-  getTodo(id) {
+  getTodo(id: string) {
     return this.http.get(`http://localhost:3000/todos/${id}`);
   }
 
-  putTodo(id, newTodo) {
+  putTodo(id: string, newTodo: Object) {
     return this.http.put(`http://localhost:3000/todos/${id}`, newTodo);
   }
 
-  deleteTodo(id) {
+  deleteTodo(id: string) {
     return this.http.delete(`http://localhost:3000/todos/${id}`);
   }
 

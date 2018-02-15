@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TodosService } from '../../services/todos.service';
+import { TodosService } from '../../../services/todos.service';
 
 @Component({
   selector: 'app-todo-edit-form',

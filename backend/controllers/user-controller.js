@@ -48,7 +48,7 @@ module.exports = {
     findAll: async (req, res) => {
 		User.find({})
 			.then((users) => {
-				console.log('users', users)
+				// console.log('users', users)
 				return res.status(200).send(users);
 			})
 			.catch((err) => {
@@ -60,7 +60,7 @@ module.exports = {
 	findById: async (req, res) => {
 		User.findOne({ _id: req.params.id })
 			.then((user) => {
-				console.log('user', user);
+				// console.log('user', user);
 				return res.status(200).json(user);
 			})
 			.catch((err) => {

@@ -7,12 +7,20 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  sign_in(user) {
+  create_user(user: User) {
     return this.http.post('http://localhost:3000/users/sign-in', user);
   }
 
-  login(user_login) {
+  log_user(user_login: User) {
     return this.http.post('http://localhost:3000/users/login', user_login);
+  }
+
+  get_users() {
+    return this.http.get('http://localhost:3000/users');
+  }
+  
+  get_user(id: string) {
+    return this.http.get(`http://localhost:3000/users/${id}`);
   }
 
 }
